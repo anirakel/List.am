@@ -3,12 +3,12 @@ package filterObjects;
 import enums.EngineType;
 import enums.MarkType;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import baseInfo.MainPage;
-import org.w3c.dom.html.HTMLInputElement;
+
 import pages.ProductPage;
 
-import javax.swing.*;
 import java.util.List;
 
 
@@ -55,17 +55,15 @@ public class BaseFilterPage extends MainPage {
     @FindBy(xpath = "//input[@id='_idsid']/..//div[@class='me']")
     WebElement markBusTypeDropdown;
 
-    @FindBy(xpath = "//*[@id=\"ff\"]/div[3]/div/div[2]/div/div[1]")
+    @FindBy(xpath = "//input[@id='_idsid']//../div[2]//div")
     List<WebElement> markTypeBus;
 
-    @FindBy(xpath = "//div[@class='l']/div[text()=\"Քաղաքային ավտոբուս\"]")
-    WebElement chooseMarkTypeBus;
 
+    Actions action = new Actions(driver);
 
 
     public void clickToSearchButton() {
         searchButton.click();
-
     }
 
 
@@ -116,23 +114,16 @@ public class BaseFilterPage extends MainPage {
 //    return new ProductPage();
 //    }
 
-    public ProductPage selectMarkType(MarkType en) {
-        Action action = new Action() {
-        };
+    public ProductPage selectMarkType(MarkType mark) {
         markBusTypeDropdown.click();
-        for (WebElement element : markTypeBus)
-            action.moveToElement( markTypeBus).perform();
-            if (element.getText().equals(en.getValue())) {
+        for (WebElement element : markTypeBus) {
+            action.moveToElement(element).build().perform();
+            System.out.println(element.getText());
+            if (element.getText().equals(mark.getValue())) {
                 element.click();
                 break;
             }
-
-        //chooseMarkTypeBus.click();
+        }
         return new ProductPage();
-
-
     }
-
-
-
 }

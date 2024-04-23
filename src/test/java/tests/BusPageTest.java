@@ -22,13 +22,5 @@ public class BusPageTest extends BaseTest {
 //                .chooseCurrency();
 //        Thread.sleep(2000);
 //        productPage.selectEngineType(EngineType.DIZEL);
-
-
-
-
-
-
-
-
     }
 }
